@@ -2,6 +2,34 @@
 
 @section('content')
 <style>
+
+
+    /*Untuk deskripsi menu dibagian pelanggan */
+    .product-description {
+        font-size: 0.85rem;
+        color: #718096;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Membatasi teks hanya 2 baris */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .stock-badge {
+        position: absolute;
+        top: 0.75rem;
+        left: 0.75rem;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        z-index: 10;
+    }
+    .stock-badge.stock-low { background: #ffc107; color: #000; }
+    .stock-badge.stock-empty { background: #dc3545; color: white; }
+
     /* Header Section dengan Gradient */
     .table-info-banner {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -351,8 +379,14 @@
                         </div>
                         
                         <div class="card-body d-flex flex-column">
-                            <h6 class="product-name">{{ $product->name }}</h6>
+                            <h6 class="product-name mb-1">{{ $product->name }}</h6> {{-- UBAH: Tambah mb-1 agar ada jarak dikit --}}
                             
+                            {{-- BARU: Bagian Deskripsi Produk --}}
+                            <p class="small text-muted mb-3" style="font-size: 0.85rem; line-height: 1.2;"> 
+                                {{ Str::limit($product->description, 50, '...') }} 
+                            </p>
+                            {{-- AKHIR BARU --}}
+
                             <div class="mt-auto">
                                 <p class="product-price mb-3">
                                     Rp {{ number_format($product->price, 0, ',', '.') }}
@@ -410,8 +444,14 @@
                             </div>
                             
                             <div class="card-body d-flex flex-column">
-                                <h6 class="product-name">{{ $product->name }}</h6>
+                                <h6 class="product-name mb-1">{{ $product->name }}</h6> {{-- UBAH: Tambah mb-1 --}}
                                 
+                                {{-- BARU: Bagian Deskripsi Produk (Loop Kategori) --}}
+                                <p class="small text-muted mb-3" style="font-size: 0.85rem; line-height: 1.2;">
+                                    {{ Str::limit($product->description, 50, '...') }}
+                                </p>
+                                {{-- AKHIR BARU --}}
+
                                 <div class="mt-auto">
                                     <p class="product-price mb-3">
                                         Rp {{ number_format($product->price, 0, ',', '.') }}
