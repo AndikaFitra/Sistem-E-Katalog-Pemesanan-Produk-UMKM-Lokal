@@ -39,12 +39,15 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'admin', // Default role adalah 'admin'
+            'is_approved' => false, // Default 'is_approved' adalah false
         ]);
 
-        event(new Registered($user));
+        // event(new Registered($user)); // Kita tidak ingin auto-login
 
-        Auth::login($user);
+        // Auth::login($user); // Jangan login otomatis
 
-        return redirect(route('dashboard', absolute: false));
+        // Alihkan ke halaman login dengan pesan
+        return redirect(route('login'))->with('status', 'Registrasi berhasil! Akun Anda akan aktif setelah disetujui oleh Super Admin.');
     }
 }
