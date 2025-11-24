@@ -6,39 +6,52 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
+    // ... (property dan definition() tetap sama, kecuali default role kita ubah ke 'customer')
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            // ... (kolom standar)
+            'role' => 'customer', // Default: Customer (belum tentu di-approve)
+            'is_approved' => false,
             'remember_token' => Str::random(10),
         ];
     }
 
+    // --- STATES DENGAN LOGIC PERSETUJUAN ---
+    
     /**
-     * Indicate that the model's email address should be unverified.
+     * State untuk Superadmin (Approved)
      */
-    public function unverified(): static
+    public function superadmin(): static
     {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'role' => 'superadmin',
+            'is_approved' => true, // <-- PENTING
+        ]);
+    }
+
+    /**
+     * State untuk Admin Biasa (Approved)
+     */
+    public function approvedAdmin(): static // <-- NAMA STATE INI HARUS ADA!
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'admin',
+            'is_approved' => true, // <-- PENTING
+        ]);
+    }
+    
+    /**
+     * State untuk Admin yang Mendaftar dan Belum Di-approve
+     */
+    public function pendingAdmin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'admin',
+            'is_approved' => false, // <-- PENTING
         ]);
     }
 }
