@@ -106,8 +106,8 @@ Aplikasi web untuk mengelola katalog produk UMKM lokal dengan sistem pemesanan d
    - Meja
 
    **Default Login:**
-   - **Superadmin**: `superadmin@example.com` / `password`
-   - **Admin**: `admin@example.com` / `password`
+   - **Superadmin**: `superadmin@resto.com` / `password`
+   - **Admin**: `admin@resto.com` / `password`
 
 7. **Create Storage Link**
    ```bash
