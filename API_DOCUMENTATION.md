@@ -27,8 +27,8 @@ Login untuk admin/superadmin dan mendapatkan access token.
 **Request Body:**
 ```json
 {
-  "email": "admin@example.com",
-  "password": "password123"
+  "email": "admin@resto.com",
+  "password": "password"
 }
 ```
 
@@ -40,8 +40,8 @@ Login untuk admin/superadmin dan mendapatkan access token.
   "data": {
     "user": {
       "id": 1,
-      "name": "Admin User",
-      "email": "admin@example.com",
+      "name": "Admin Kasir",
+      "email": "admin@resto.com",
       "role": "admin",
       "is_approved": true
     },
@@ -86,8 +86,8 @@ Mendapatkan informasi user yang sedang login.
   "success": true,
   "data": {
     "id": 1,
-    "name": "Admin User",
-    "email": "admin@example.com",
+    "name": "Admin Kasir",
+    "email": "admin@resto.com",
     "role": "admin",
     "is_approved": true
   }
@@ -517,7 +517,10 @@ Konfirmasi pembayaran cash untuk order.
 ```bash
 curl -X POST http://127.0.0.1:8000/api/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"admin@example.com","password":"password"}'
+  -d '{
+    "email": "admin@resto.com",
+    "password": "password"
+  }'
 ```
 
 ### Get Products
